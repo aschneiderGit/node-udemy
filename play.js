@@ -1,18 +1,13 @@
-function testVar() {
-  if (true) {
-    var x = 0;
-    var x = 10;
-  }
-  console.log(x);
-}
+const person = {
+  name: "Aimé",
+  age: 27,
+  greetArrayFunction: () => {
+    console.log("Hello array function, I am " + this.name);
+  }, // here this is undefined bc related to the parent caller
+  greet() {
+    console.log("Hi, I am " + this.name);
+  },
+};
 
-function testLet() {
-  if (true) {
-    let y = 0;
-    let y = 20; //can declare redeclare in same score
-  }
-  console.log(y); //can't access outside the scopre
-}
-
-testVar();
-testLet();
+person.greet();
+person.greetArrayFunction();
