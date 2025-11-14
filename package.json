@@ -1,0 +1,21 @@
+{
+  "name": "node-udemy",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/aschneiderGit/node-udemy#readme",
+  "bugs": {
+    "url": "https://github.com/aschneiderGit/node-udemy/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aschneiderGit/node-udemy.git"
+  },
+  "license": "ISC",
+  "author": "Aimé Schneider",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  }
+}
