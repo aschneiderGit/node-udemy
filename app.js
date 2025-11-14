@@ -28,11 +28,12 @@ const server = http.createServer((req, res) => {
       const parsedBody = Buffer.concat(body).toString("utf-8");
       console.log(parsedBody);
       const message = parsedBody.split("=")[1];
-      fs.writeFileSync("message.txt", message); //block the code until the file is created
+      fs.writeFile("message.txt", message, (err) => {
+        res.statusCode = 302;
+        res.setHeader("Location", "/");
+        return res.end();
+      });
     });
-    res.statusCode = 302;
-    res.setHeader("Location", "/");
-    return res.end();
   }
   res.setHeader("Content-Type", "text/html");
   res.write("<html>");
