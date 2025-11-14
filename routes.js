@@ -5,39 +5,38 @@ const requestHandler = (req, res) => {
   const method = req.method;
   if (url === "/") {
     res.write("<html>");
-    res.write("<head><title>Enter Message</title><head>");
+    res.write("<head><title>Hello</title><head>");
+    res.write("<body>");
+    res.write("<h1>Hello, Welcome to the exercice</h1>");
     res.write(
-      '<body><form action="/message" method="POST"><input type="text" name="message"><button type="submit">Send</button></form></body>'
+      '<form action="/create-user" method="POST"><input type="text" name="username"><button type="submit">Create User</button></form>'
+    );
+    res.write("</body>");
+    res.write("</html>");
+    return res.end();
+  } else if (url === "/users") {
+    res.write("<html>");
+    res.write("<head><title>Users</title><head>");
+    res.write(
+      "<body><ul><li>User 1 </li><li>User 2 </li><li>User 3 </li></ul></body>"
     );
     res.write("</html>");
     return res.end();
-  }
-  if (url === "/message" && method === "POST") {
+  } else if (url === "/create-user" && method === "POST") {
     const body = [];
     req.on("data", (chunk) => {
-      console.log("chunk");
-      console.log(chunk);
       body.push(chunk);
     });
     req.on("end", () => {
       console.log("body");
-      console.log(body);
       const parsedBody = Buffer.concat(body).toString("utf-8");
-      console.log(parsedBody);
-      const message = parsedBody.split("=")[1];
-      fs.writeFile("message.txt", message, (err) => {
-        res.statusCode = 302;
-        res.setHeader("Location", "/");
-        return res.end();
-      });
+      const username = parsedBody.split("=")[1];
+      console.log(username);
+      res.statusCode = 302;
+      res.setHeader("Location", "/users");
+      return res.end();
     });
   }
-  res.setHeader("Content-Type", "text/html");
-  res.write("<html>");
-  res.write("<head><title>My First Page</title><head>");
-  res.write("<body><h1>Hello from my Node.js Server!</h1></body>");
-  res.write("</html>");
-  res.end();
 };
 
 module.exports = requestHandler;
