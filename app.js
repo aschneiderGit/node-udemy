@@ -1,26 +1,14 @@
-const http = require("http");
 const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
 
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/add-product", (req, res, next) => {
-  console.log("In another middleware");
-  res.send(
-    '<form action="/product" method="POST"><input type="text" name="title"/><button type="submit"> Add Product</button></form>'
-  );
-});
-
-app.post("/product", (req, res, next) => {
-  console.log(req.body);
-  res.redirect("/");
-});
-
-app.get("/", (req, res, next) => {
-  console.log("In another middleware");
-  res.send("<h1>Hello from Express</h1>");
-});
+app.use(adminRoutes);
+app.use(shopRoutes);
 
 app.listen(3000);
